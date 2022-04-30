@@ -1,0 +1,208 @@
+# Rime schema
+# encoding: utf-8
+
+schema:
+  schema_id: szmweq
+  name: 古音今拼
+  version: "2016.07.12"
+  author:
+    - naozeioai <1066693321@qq.com>
+  description: 
+    version 2.0
+    中古汉语QQ群：531376406
+  dependencies:
+    - luna_pinyin
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+  - name: half_shape
+    states: [ 全角, 半角 ]
+  - name: ascii_punct
+    states: [ ，。, ，． ]
+  - name: simplification
+    states: [ 繁体, 简体 ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - script_translator
+    - reverse_lookup_translator
+  filters:
+    - simplifier
+    - uniquifier
+
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " '"
+  algebra:
+    - xform/^ph/P/
+    - xform/^b/BB/
+    - xform/^th/T/
+    - xform/^tr/DH/
+    - xform/^tl/TH/
+    - xform/^dr/DDH/
+    - xform/^nr/NH/
+    - xform/^ch/C/
+    - xform/^cr/ZH/
+    - xform/^cl/CH/
+    - xform/^dl/ZZH/
+    - xform/^sr/SH/
+    - xform/^zr/SSH/
+    - xform/^cj/J/
+    - xform/^tj/Q/
+    - xform/^zj/XX/
+    - xform/^kh/K/
+    - xform/^dj/JJ/
+    - xform/^dz/ZZ/
+    - xform/^g/GG/
+    - xform/^q/NG/
+    - xform/^f/R/
+    - xform/^j/Y/
+    - xform/^c/Z/
+    - xform/^d/DD/
+    - xform/^t/D/
+    - xform/^p/B/
+    - xform/^k/G/
+    - xform/^z/SS/
+    - xlit/BCDGHJKNPQRSTXYZ/bcdghjknpqrstxyz/
+    - "xform/'//"
+    - abbrev/^(zzh).+$/$1/
+    - abbrev/^(ssh).+$/$1/
+    - abbrev/^(ddh).+$/$1/
+    - abbrev/^(th|zh|ch|nh|jj|zz|bb|ss|gg|xx|ng).+$/$1/
+    - abbrev/^(dd|dh|sh)([aeiouy]).+$/$1/
+    - abbrev/^(a|b|e|f|g|h|i||k|l|m|o|p|q|r|u|v|w|x|y).+$/$1/
+    - abbrev/^([djtzcsn])([aeiouy]).+$/$1/
+
+translator:
+  dictionary: szmweq
+  spelling_hints: 8
+  prism: szmweq
+  comment_format:
+    - xform/h$/˥˧/
+    - xform/h /˥˧ /
+    - xform/x$/˨˩/
+    - xform/x /˨˩ /
+    - xform/p$/p˥/
+    - xform/p /p˥ /
+    - xform/t$/t˥/
+    - xform/t /t˥ /
+    - xform/k$/k˥/
+    - xform/k /k˥ /
+    - xform/([a-z])$/$1˩˩/
+    - xform/([a-z]) /$1˩˩ /
+    - xform/ii/ɤi/
+    - xform/eo/ə/
+    - xform/ae/ɤe/
+    - xform/ao/ɤo/
+    - xform/aa/ɤA/
+    - xform/a/ɑ/
+    - xform/ph/pʰ/
+    - xform/th/tʰ/
+    - xform/tr/ʈ/
+    - xform/tl/ʈʰ/
+    - xform/dr/ɖ/
+    - xform/nr/ɳ/
+    - xform/ch/tsʰ/
+    - xform/cr/tʂ/
+    - xform/cl/tʂʰ/
+    - xform/dl/dʐ/
+    - xform/sr/ʂ/
+    - xform/zr/ʐ/
+    - xform/cj/tɕ/
+    - xform/tj/tɕʰ/
+    - xform/dj/dʑ/
+    - xform/nj/ȵ/
+    - xform/x/ɕ/
+    - xform/zj/ʑ/
+    - xform/kh/kʰ/
+    - xform/g/ɡ/
+    - xform/q/ŋ/
+    - xform/ (a|e|i|o|u|y)/ ʔ$1/
+    - xform/^(a|e|i|o|u|y)/ʔ$1/
+    - xform/f/ɦ/
+    - xform/c/ts/
+    - xform/A/a/
+
+reverse_lookup:
+  dictionary: luna_pinyin
+  prefix: "`"
+  suffix: "'"
+  tips: 〔拼音〕
+  preedit_format:
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
+  comment_format:
+    - xform/h$/˥˧/
+    - xform/h /˥˧ /
+    - xform/x$/˨˩/
+    - xform/x /˨˩ /
+    - xform/p$/p˥/
+    - xform/p /p˥ /
+    - xform/t$/t˥/
+    - xform/t /t˥ /
+    - xform/k$/k˥/
+    - xform/k /k˥ /
+    - xform/([a-z])$/$1˩˩/
+    - xform/([a-z]) /$1˩˩ /
+    - xform/ii/ɤi/
+    - xform/eo/ə/
+    - xform/ae/ɤe/
+    - xform/ao/ɤo/
+    - xform/aa/ɤA/
+    - xform/a/ɑ/
+    - xform/ph/pʰ/
+    - xform/th/tʰ/
+    - xform/tr/ʈ/
+    - xform/tl/ʈʰ/
+    - xform/dr/ɖ/
+    - xform/nr/ɳ/
+    - xform/ch/tsʰ/
+    - xform/cr/tʂ/
+    - xform/cl/tʂʰ/
+    - xform/dl/dʐ/
+    - xform/sr/ʂ/
+    - xform/zr/ʐ/
+    - xform/cj/tɕ/
+    - xform/tj/tɕʰ/
+    - xform/dj/dʑ/
+    - xform/nj/ȵ/
+    - xform/x/ɕ/
+    - xform/zj/ʑ/
+    - xform/kh/kʰ/
+    - xform/g/ɡ/
+    - xform/q/ŋ/
+    - xform/ (a|e|i|o|u|y)/ ʔ$1/
+    - xform/^(a|e|i|o|u|y)/ʔ$1/
+    - xform/f/ɦ/
+    - xform/c/ts/
+    - xform/A/a/
+
+punctuator:
+  import_preset: default
+
+key_binder:
+  import_preset: default
+
+recognizer:
+  import_preset: default
+  patterns:
+    reverse_lookup: "`[a-z]*'?$"
